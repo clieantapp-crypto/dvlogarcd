@@ -560,24 +560,110 @@ function Contact() {
   return (
     <PageLayout title="اتصل بنا">
       <div className="prose prose-lg max-w-none" data-testid="content-contact">
-        <p className="text-muted-foreground mb-6">
-          نسعد بتواصلكم معنا. يمكنكم التواصل معنا عبر الطرق التالية:
-        </p>
-        <h2 className="text-2xl font-semibold mt-8 mb-4">البريد الإلكتروني</h2>
-        <p className="text-muted-foreground mb-6">
-          للاستفسارات العامة: info@arabictelecom.blog
-        </p>
-        <p className="text-muted-foreground mb-6">
-          للتعاون والإعلانات: ads@arabictelecom.blog
-        </p>
-        <h2 className="text-2xl font-semibold mt-8 mb-4">وسائل التواصل الاجتماعي</h2>
-        <p className="text-muted-foreground mb-6">
-          تابعونا على منصات التواصل الاجتماعي للحصول على آخر الأخبار والتحديثات.
-        </p>
-        <h2 className="text-2xl font-semibold mt-8 mb-4">الاقتراحات والملاحظات</h2>
-        <p className="text-muted-foreground">
-          نرحب بجميع اقتراحاتكم وملاحظاتكم لتحسين المحتوى المقدم. شاركونا آرائكم!
-        </p>
+        
+        <div className="flex items-start gap-4 mb-8">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <MessageSquare className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <p className="text-muted-foreground">
+              نسعد بتواصلكم معنا ونرحب بجميع استفساراتكم ومقترحاتكم. فريقنا متاح للرد على رسائلكم ومساعدتكم في أي وقت. اختاروا الطريقة المناسبة للتواصل معنا.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Mail className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">البريد الإلكتروني</h2>
+            <div className="space-y-3">
+              <div className="p-3 rounded-lg bg-card border border-card-border">
+                <p className="font-medium mb-1">للاستفسارات العامة</p>
+                <p className="text-sm text-muted-foreground">info@arabictelecom.blog</p>
+              </div>
+              <div className="p-3 rounded-lg bg-card border border-card-border">
+                <p className="font-medium mb-1">للتعاون والإعلانات</p>
+                <p className="text-sm text-muted-foreground">ads@arabictelecom.blog</p>
+              </div>
+              <div className="p-3 rounded-lg bg-card border border-card-border">
+                <p className="font-medium mb-1">لإرسال المقالات والمحتوى</p>
+                <p className="text-sm text-muted-foreground">content@arabictelecom.blog</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Clock className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">أوقات الرد</h2>
+            <p className="text-muted-foreground mb-2">
+              نحرص على الرد على جميع الرسائل في أسرع وقت ممكن:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-1">
+              <li>الاستفسارات العامة: خلال 24-48 ساعة عمل</li>
+              <li>طلبات الإعلانات والتعاون: خلال 2-3 أيام عمل</li>
+              <li>إرسال المحتوى: خلال أسبوع واحد</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Share2 className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">وسائل التواصل الاجتماعي</h2>
+            <p className="text-muted-foreground mb-3">
+              تابعونا على منصات التواصل الاجتماعي للحصول على آخر الأخبار والتحديثات الفورية:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-1">
+              <li>تويتر (X): للأخبار العاجلة والتحديثات السريعة</li>
+              <li>فيسبوك: للمقالات والنقاشات المجتمعية</li>
+              <li>لينكد إن: للمحتوى المهني والتقني</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <HelpCircle className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">الأسئلة الشائعة</h2>
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold mb-1">هل يمكنني نشر مقال على المدونة؟</h3>
+                <p className="text-sm text-muted-foreground">نعم، نرحب بمساهمات الكتّاب المتخصصين. أرسل مقالك إلى content@arabictelecom.blog مع نبذة عنك.</p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-1">كيف يمكنني الإعلان على الموقع؟</h3>
+                <p className="text-sm text-muted-foreground">للاستفسار عن فرص الإعلان والتعاون، تواصل معنا عبر ads@arabictelecom.blog.</p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-1">هل المحتوى مجاني بالكامل؟</h3>
+                <p className="text-sm text-muted-foreground">نعم، جميع المقالات والمحتوى على المدونة متاح مجانًا للقراءة.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Lightbulb className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">اقتراحات المحتوى</h2>
+            <p className="text-muted-foreground">
+              هل لديك موضوع تود أن نغطيه؟ نرحب باقتراحاتكم لمواضيع جديدة في مجال الاتصالات والتقنية. شاركونا أفكاركم عبر البريد الإلكتروني أو منصات التواصل الاجتماعي، وسنسعى لتغطية المواضيع التي تهمكم.
+            </p>
+          </div>
+        </div>
+
       </div>
     </PageLayout>
   );
