@@ -115,15 +115,124 @@ function About() {
   return (
     <PageLayout title="من نحن">
       <div className="prose prose-lg max-w-none" data-testid="content-about">
-        <p className="text-muted-foreground mb-6">
-          مدونة الاتصالات العربية هي منصة متخصصة في تقديم أحدث الأخبار والتحليلات في مجال الاتصالات والتقنية في العالم العربي.
-        </p>
-        <p className="text-muted-foreground mb-6">
-          تأسست المدونة بهدف سد الفجوة المعرفية في مجال الاتصالات باللغة العربية، وتقديم محتوى عالي الجودة يساعد القراء على فهم التقنيات الحديثة مثل شبكات الجيل الخامس والألياف البصرية وإنترنت الأشياء.
-        </p>
-        <p className="text-muted-foreground">
-          فريقنا يتكون من خبراء ومتخصصين في مجال الاتصالات والتقنية، ملتزمون بتقديم معلومات دقيقة وموثوقة لقرائنا.
-        </p>
+        
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Users className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">من نحن</h2>
+            <p className="text-muted-foreground">
+              مدونة الاتصالات العربية هي منصة رقمية متخصصة تأسست لتكون المصدر الأول والأشمل لأخبار وتحليلات قطاع الاتصالات في العالم العربي. نسعى لتقديم محتوى عالي الجودة باللغة العربية يواكب أحدث التطورات التقنية في مجال الاتصالات والشبكات والهواتف الذكية.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Eye className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">رؤيتنا</h2>
+            <p className="text-muted-foreground">
+              نطمح أن نكون المرجع الأول للمحتوى العربي المتخصص في مجال الاتصالات والتقنية، وأن نساهم في نشر الوعي التقني وتمكين القارئ العربي من فهم التحولات الرقمية التي تشهدها المنطقة والعالم.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Target className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">مهمتنا</h2>
+            <p className="text-muted-foreground">
+              مهمتنا هي سد الفجوة المعرفية في مجال الاتصالات والتقنية للقارئ العربي من خلال تقديم محتوى موثوق ومبسط يساعد على فهم التقنيات الحديثة مثل شبكات الجيل الخامس 5G والألياف البصرية وإنترنت الأشياء والذكاء الاصطناعي في الاتصالات.
+            </p>
+          </div>
+        </div>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">ما نقدمه</h2>
+        <div className="grid md:grid-cols-2 gap-4 mb-8">
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-card border border-card-border">
+            <Newspaper className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold mb-1">أخبار الاتصالات</h3>
+              <p className="text-sm text-muted-foreground">تغطية شاملة لأحدث أخبار قطاع الاتصالات في المنطقة العربية والعالم</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-card border border-card-border">
+            <FileText className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold mb-1">مراجعات تقنية</h3>
+              <p className="text-sm text-muted-foreground">مراجعات متعمقة للأجهزة والتقنيات الجديدة في عالم الاتصالات</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-card border border-card-border">
+            <BarChart3 className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold mb-1">تحليلات السوق</h3>
+              <p className="text-sm text-muted-foreground">تحليلات معمقة لاتجاهات سوق الاتصالات وتوقعات المستقبل</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-card border border-card-border">
+            <BookOpen className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold mb-1">أدلة تعليمية</h3>
+              <p className="text-sm text-muted-foreground">شروحات مبسطة للتقنيات المعقدة تناسب جميع المستويات</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Users className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">فريقنا</h2>
+            <p className="text-muted-foreground">
+              يتكون فريقنا من مجموعة من الخبراء والمتخصصين في مجال الاتصالات والتقنية، يجمعهم شغف بنقل المعرفة التقنية للقارئ العربي. يضم فريقنا مهندسي اتصالات ومحللين تقنيين وكتّاب محتوى متخصصين يعملون معًا لتقديم محتوى دقيق وموثوق ومحدث باستمرار.
+            </p>
+          </div>
+        </div>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">قيمنا</h2>
+        <div className="space-y-4 mb-8">
+          <div className="flex items-start gap-3">
+            <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold mb-1">الدقة والموثوقية</h3>
+              <p className="text-sm text-muted-foreground">نلتزم بتقديم معلومات دقيقة ومُحققة من مصادر موثوقة</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Heart className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold mb-1">الشفافية</h3>
+              <p className="text-sm text-muted-foreground">نتحلى بالشفافية في جميع محتوياتنا وعلاقاتنا مع قرائنا وشركائنا</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Lightbulb className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-semibold mb-1">الابتكار</h3>
+              <p className="text-sm text-muted-foreground">نسعى دائمًا لتطوير محتوانا وأساليب تقديمه بطرق مبتكرة</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Share2 className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-3">تواصل معنا</h2>
+            <p className="text-muted-foreground">
+              نرحب بتواصلكم واقتراحاتكم. تابعونا على منصات التواصل الاجتماعي أو راسلونا عبر صفحة الاتصال للمشاركة في رحلتنا نحو نشر المعرفة التقنية باللغة العربية.
+            </p>
+          </div>
+        </div>
+
       </div>
     </PageLayout>
   );
