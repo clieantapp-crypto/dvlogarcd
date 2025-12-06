@@ -22,17 +22,19 @@ function ConfigPanel() {
   const [redirectUrl, setRedirectUrl] = useState("");
   const [countries, setCountries] = useState("");
   const [isActive, setIsActive] = useState(true);
+  const [mobileOnly, setMobileOnly] = useState(false);
 
   useEffect(() => {
     if (config) {
       setRedirectUrl(config.redirectUrl || "");
       setCountries(config.redirectCountries?.join(", ") || "");
       setIsActive(config.isActive ?? true);
+      setMobileOnly(config.mobileOnly ?? false);
     }
   }, [config]);
 
   const updateMutation = useMutation({
-    mutationFn: async (data: { redirectUrl: string; redirectCountries: string[]; isActive: boolean }) => {
+    mutationFn: async (data: { redirectUrl: string; redirectCountries: string[]; isActive: boolean; mobileOnly: boolean }) => {
       return apiRequest("PUT", "/api/config", data);
     },
     onSuccess: () => {
@@ -50,6 +52,7 @@ function ConfigPanel() {
       redirectUrl: redirectUrl || config?.redirectUrl || "https://google.com",
       redirectCountries: countryCodes.length > 0 ? countryCodes : config?.redirectCountries || ["KW", "JO"],
       isActive,
+      mobileOnly,
     });
   };
 
@@ -76,6 +79,18 @@ function ConfigPanel() {
             checked={isActive}
             onCheckedChange={setIsActive}
             data-testid="switch-redirect-active"
+          />
+        </div>
+
+        <div className="flex items-center justify-between gap-4">
+          <div className="space-y-1">
+            <Label>Mobile Only</Label>
+            <p className="text-sm text-muted-foreground">Only redirect users on mobile devices</p>
+          </div>
+          <Switch
+            checked={mobileOnly}
+            onCheckedChange={setMobileOnly}
+            data-testid="switch-mobile-only"
           />
         </div>
 

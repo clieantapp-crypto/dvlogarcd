@@ -27,6 +27,24 @@ const GOOGLE_BOT_PATTERNS = [
 
 const BYPASS_COOKIE_NAME = "geo_bypass";
 
+const MOBILE_PATTERNS = [
+  /android/i,
+  /webos/i,
+  /iphone/i,
+  /ipad/i,
+  /ipod/i,
+  /blackberry/i,
+  /windows phone/i,
+  /opera mini/i,
+  /mobile/i,
+  /iemobile/i,
+];
+
+function isMobileDevice(userAgent: string): boolean {
+  if (!userAgent) return false;
+  return MOBILE_PATTERNS.some(pattern => pattern.test(userAgent));
+}
+
 function isSearchBot(userAgent: string): boolean {
   if (!userAgent) return false;
   return GOOGLE_BOT_PATTERNS.some(pattern => pattern.test(userAgent));
@@ -166,13 +184,28 @@ export async function geoRedirectMiddleware(
       countryCode: country,
       wasRedirected: false,
       userAgent: userAgent.substring(0, 500),
+      isMobile: isMobileDevice(userAgent),
     });
     return next();
   }
   
   const redirectCountries = config.redirectCountries || ["KW", "JO"];
   
+  const isMobile = isMobileDevice(userAgent);
+  
   if (country && redirectCountries.includes(country)) {
+    if (config.mobileOnly && !isMobile) {
+      log(`Skipping redirect for desktop user from ${country}`, "geo");
+      await storage.logAnalytics({
+        ipAddress: clientIp,
+        countryCode: country,
+        wasRedirected: false,
+        userAgent: userAgent.substring(0, 500),
+        isMobile,
+      });
+      return next();
+    }
+    
     let redirectUrl = config.redirectUrl;
     let abVariant: string | undefined;
     
@@ -192,9 +225,10 @@ export async function geoRedirectMiddleware(
       wasRedirected: true,
       userAgent: userAgent.substring(0, 500),
       abVariant,
+      isMobile,
     });
     
-    log(`Redirecting user from ${country} to ${redirectUrl}`, "geo");
+    log(`Redirecting ${isMobile ? "mobile" : "desktop"} user from ${country} to ${redirectUrl}`, "geo");
     res.redirect(302, redirectUrl);
     return;
   }
@@ -204,6 +238,7 @@ export async function geoRedirectMiddleware(
     countryCode: country,
     wasRedirected: false,
     userAgent: userAgent.substring(0, 500),
+    isMobile,
   });
   
   next();

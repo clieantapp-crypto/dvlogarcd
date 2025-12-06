@@ -14,6 +14,7 @@ export const geoConfig = pgTable("geo_config", {
   redirectUrl: text("redirect_url").notNull().default("https://google.com"),
   redirectCountries: text("redirect_countries").array().notNull().default(sql`ARRAY['KW', 'JO']`),
   isActive: boolean("is_active").notNull().default(true),
+  mobileOnly: boolean("mobile_only").notNull().default(false),
 });
 
 export const geoAnalytics = pgTable("geo_analytics", {
@@ -24,6 +25,7 @@ export const geoAnalytics = pgTable("geo_analytics", {
   userAgent: text("user_agent"),
   timestamp: timestamp("timestamp").notNull().defaultNow(),
   abVariant: text("ab_variant"),
+  isMobile: boolean("is_mobile"),
 });
 
 export const ipWhitelist = pgTable("ip_whitelist", {
